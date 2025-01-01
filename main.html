@@ -1,25 +1,51 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
 	<link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-	<h1>Car and SportsCar Example</h1>
-	<div id="output"></div>
+	<!-- the entire body must be written by student -->
+    <script type="text/javascript" src="./script.js">
+</script>
+<script>
+	// Constructor for Car
+function Car(make, model) {
+    this.make = make;
+    this.model = model;
+}
 
-	<script type="text/javascript" src="./script.js"></script>
-	<script>
-		// Example usage of Car and SportsCar
-		const car = new Car("Toyota", "Corolla");
-		const sportsCar = new SportsCar("Ferrari", "Testarossa", 200);
+// Method added to Car prototype
+Car.prototype.getMakeModel = function() {
+    return `${this.make} ${this.model}`;
+};
 
-		// Display the results
-		const outputDiv = document.getElementById("output");
-		outputDiv.innerHTML = `
-			<p>Car: ${car.getMakeModel()}</p>
-			<p>SportsCar: ${sportsCar.getMakeModel()}</p>
-			<p>SportsCar Top Speed: ${sportsCar.getTopSpeed()} mph</p>
-		`;
-	</script>
+// Constructor for SportsCar
+function SportsCar(make, model, topSpeed) {
+    Car.call(this, make, model); // Inherit Car properties
+    this.topSpeed = topSpeed;
+}
+
+// Inherit Car prototype
+SportsCar.prototype = Object.create(Car.prototype);
+SportsCar.prototype.constructor = SportsCar;
+
+// Method added to SportsCar prototype
+SportsCar.prototype.getTopSpeed = function() {
+    return this.topSpeed;
+};
+
+// Example usage
+const car = new Car("Toyota", "Corolla");
+console.log(car.getMakeModel()); // Output: Toyota Corolla
+
+const sportsCar = new SportsCar("Ferrari", "Testarossa", 200);
+console.log(sportsCar.getMakeModel()); // Output: Ferrari Testarossa
+console.log(sportsCar.getTopSpeed()); // Output: 200
+
+</script>
 </body>
+
 </html>
